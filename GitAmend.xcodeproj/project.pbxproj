@@ -3,10 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		220C2ADA24C0DD81007B22EB /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 220C2AD924C0DD81007B22EB /* KeychainAccess */; };
+		220C2ADD24C0DF5C007B22EB /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 220C2ADC24C0DF5C007B22EB /* Release.xcconfig */; };
 		221C41EA24BF6C3E0020A8D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221C41E924BF6C3E0020A8D1 /* AppDelegate.swift */; };
 		221C41EC24BF6C3E0020A8D1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221C41EB24BF6C3E0020A8D1 /* SceneDelegate.swift */; };
 		221C41EE24BF6C3E0020A8D1 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221C41ED24BF6C3E0020A8D1 /* MasterViewController.swift */; };
@@ -14,9 +16,14 @@
 		221C41F324BF6C3E0020A8D1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 221C41F124BF6C3E0020A8D1 /* Main.storyboard */; };
 		221C41F524BF6C400020A8D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 221C41F424BF6C400020A8D1 /* Assets.xcassets */; };
 		221C41F824BF6C400020A8D1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 221C41F624BF6C400020A8D1 /* LaunchScreen.storyboard */; };
+		221C420124BF6C510020A8D1 /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 221C420024BF6C510020A8D1 /* AuthenticationServices.framework */; };
+		221C420324BF6F200020A8D1 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221C420224BF6F200020A8D1 /* RootViewController.swift */; };
+		221C420624BF74440020A8D1 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 221C420524BF74440020A8D1 /* Alamofire */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		220C2ADC24C0DF5C007B22EB /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		220C2ADE24C0DF93007B22EB /* Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
 		221C41E624BF6C3E0020A8D1 /* GitAmend.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GitAmend.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		221C41E924BF6C3E0020A8D1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		221C41EB24BF6C3E0020A8D1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -26,6 +33,8 @@
 		221C41F424BF6C400020A8D1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		221C41F724BF6C400020A8D1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		221C41F924BF6C400020A8D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		221C420024BF6C510020A8D1 /* AuthenticationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AuthenticationServices.framework; path = System/Library/Frameworks/AuthenticationServices.framework; sourceTree = SDKROOT; };
+		221C420224BF6F200020A8D1 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,17 +42,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				221C420124BF6C510020A8D1 /* AuthenticationServices.framework in Frameworks */,
+				221C420624BF74440020A8D1 /* Alamofire in Frameworks */,
+				220C2ADA24C0DD81007B22EB /* KeychainAccess in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		220C2ADB24C0DF32007B22EB /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				220C2ADC24C0DF5C007B22EB /* Release.xcconfig */,
+				220C2ADE24C0DF93007B22EB /* Development.xcconfig */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
 		221C41DD24BF6C3E0020A8D1 = {
 			isa = PBXGroup;
 			children = (
 				221C41E824BF6C3E0020A8D1 /* GitAmend */,
 				221C41E724BF6C3E0020A8D1 /* Products */,
+				221C41FF24BF6C510020A8D1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -58,6 +80,7 @@
 		221C41E824BF6C3E0020A8D1 /* GitAmend */ = {
 			isa = PBXGroup;
 			children = (
+				220C2ADB24C0DF32007B22EB /* Config */,
 				221C41E924BF6C3E0020A8D1 /* AppDelegate.swift */,
 				221C41EB24BF6C3E0020A8D1 /* SceneDelegate.swift */,
 				221C41ED24BF6C3E0020A8D1 /* MasterViewController.swift */,
@@ -66,8 +89,17 @@
 				221C41F424BF6C400020A8D1 /* Assets.xcassets */,
 				221C41F624BF6C400020A8D1 /* LaunchScreen.storyboard */,
 				221C41F924BF6C400020A8D1 /* Info.plist */,
+				221C420224BF6F200020A8D1 /* RootViewController.swift */,
 			);
 			path = GitAmend;
+			sourceTree = "<group>";
+		};
+		221C41FF24BF6C510020A8D1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				221C420024BF6C510020A8D1 /* AuthenticationServices.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -86,6 +118,10 @@
 			dependencies = (
 			);
 			name = GitAmend;
+			packageProductDependencies = (
+				221C420524BF74440020A8D1 /* Alamofire */,
+				220C2AD924C0DD81007B22EB /* KeychainAccess */,
+			);
 			productName = GitAmend;
 			productReference = 221C41E624BF6C3E0020A8D1 /* GitAmend.app */;
 			productType = "com.apple.product-type.application";
@@ -114,6 +150,10 @@
 				Base,
 			);
 			mainGroup = 221C41DD24BF6C3E0020A8D1;
+			packageReferences = (
+				221C420424BF74440020A8D1 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				220C2AD824C0DD81007B22EB /* XCRemoteSwiftPackageReference "KeychainAccess" */,
+			);
 			productRefGroup = 221C41E724BF6C3E0020A8D1 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -128,6 +168,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				220C2ADD24C0DF5C007B22EB /* Release.xcconfig in Resources */,
 				221C41F824BF6C400020A8D1 /* LaunchScreen.storyboard in Resources */,
 				221C41F524BF6C400020A8D1 /* Assets.xcassets in Resources */,
 				221C41F324BF6C3E0020A8D1 /* Main.storyboard in Resources */,
@@ -141,6 +182,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				221C420324BF6F200020A8D1 /* RootViewController.swift in Sources */,
 				221C41EA24BF6C3E0020A8D1 /* AppDelegate.swift in Sources */,
 				221C41EC24BF6C3E0020A8D1 /* SceneDelegate.swift in Sources */,
 				221C41EE24BF6C3E0020A8D1 /* MasterViewController.swift in Sources */,
@@ -172,6 +214,7 @@
 /* Begin XCBuildConfiguration section */
 		221C41FA24BF6C400020A8D1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 220C2ADE24C0DF93007B22EB /* Development.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -232,6 +275,7 @@
 		};
 		221C41FB24BF6C400020A8D1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 220C2ADC24C0DF5C007B22EB /* Release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -342,6 +386,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		220C2AD824C0DD81007B22EB /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.2.0;
+			};
+		};
+		221C420424BF74440020A8D1 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.2.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		220C2AD924C0DD81007B22EB /* KeychainAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 220C2AD824C0DD81007B22EB /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			productName = KeychainAccess;
+		};
+		221C420524BF74440020A8D1 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 221C420424BF74440020A8D1 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 221C41DE24BF6C3E0020A8D1 /* Project object */;
 }
