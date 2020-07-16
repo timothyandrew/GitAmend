@@ -29,9 +29,15 @@ class RootViewController: UISplitViewController {
         
         self.authSession = GithubAPIAuth.authSession()
         authSession?.presentationContextProvider = self
-        authSession?.start()
-//        let keychain = Keychain(service: "net.timothyandrew.GitAmend")
-//        print(keychain["refresh_token"])
+        
+        // TODO: More sophisticated auth; use UI to prompt the user to kickoff authentication
+        // TODO: Don't allow UI interaction until auth is done
+        if GithubAPIAuth.accessToken() != nil {
+            print("Already authenticated!")
+        } else {
+            print("Need to authenticate…")
+            authSession?.start()
+        }
     }
     
     /*
