@@ -11,6 +11,10 @@
 		220C2ADD24C0DF5C007B22EB /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 220C2ADC24C0DF5C007B22EB /* Release.xcconfig */; };
 		220C2AE124C0E6A5007B22EB /* GithubAPIAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220C2AE024C0E6A5007B22EB /* GithubAPIAuth.swift */; };
 		220C2AE324C0E6BC007B22EB /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220C2AE224C0E6BC007B22EB /* Config.swift */; };
+		220C2AE524C21859007B22EB /* GithubAPIFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220C2AE424C21858007B22EB /* GithubAPIFile.swift */; };
+		220C2AE724C21993007B22EB /* GithubAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220C2AE624C21993007B22EB /* GithubAPI.swift */; };
+		220C2AE924C2FF21007B22EB /* GithubAPIRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220C2AE824C2FF21007B22EB /* GithubAPIRef.swift */; };
+		220C2AEB24C30103007B22EB /* GithubAPITree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220C2AEA24C30103007B22EB /* GithubAPITree.swift */; };
 		221C41EA24BF6C3E0020A8D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221C41E924BF6C3E0020A8D1 /* AppDelegate.swift */; };
 		221C41EC24BF6C3E0020A8D1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221C41EB24BF6C3E0020A8D1 /* SceneDelegate.swift */; };
 		221C41EE24BF6C3E0020A8D1 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221C41ED24BF6C3E0020A8D1 /* MasterViewController.swift */; };
@@ -28,6 +32,10 @@
 		220C2ADE24C0DF93007B22EB /* Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
 		220C2AE024C0E6A5007B22EB /* GithubAPIAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubAPIAuth.swift; sourceTree = "<group>"; };
 		220C2AE224C0E6BC007B22EB /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		220C2AE424C21858007B22EB /* GithubAPIFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubAPIFile.swift; sourceTree = "<group>"; };
+		220C2AE624C21993007B22EB /* GithubAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubAPI.swift; sourceTree = "<group>"; };
+		220C2AE824C2FF21007B22EB /* GithubAPIRef.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubAPIRef.swift; sourceTree = "<group>"; };
+		220C2AEA24C30103007B22EB /* GithubAPITree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubAPITree.swift; sourceTree = "<group>"; };
 		221C41E624BF6C3E0020A8D1 /* GitAmend.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GitAmend.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		221C41E924BF6C3E0020A8D1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		221C41EB24BF6C3E0020A8D1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -69,6 +77,10 @@
 			isa = PBXGroup;
 			children = (
 				220C2AE024C0E6A5007B22EB /* GithubAPIAuth.swift */,
+				220C2AE424C21858007B22EB /* GithubAPIFile.swift */,
+				220C2AE624C21993007B22EB /* GithubAPI.swift */,
+				220C2AE824C2FF21007B22EB /* GithubAPIRef.swift */,
+				220C2AEA24C30103007B22EB /* GithubAPITree.swift */,
 			);
 			path = GithubAPI;
 			sourceTree = "<group>";
@@ -201,8 +213,12 @@
 				221C41EC24BF6C3E0020A8D1 /* SceneDelegate.swift in Sources */,
 				220C2AE324C0E6BC007B22EB /* Config.swift in Sources */,
 				221C41EE24BF6C3E0020A8D1 /* MasterViewController.swift in Sources */,
+				220C2AE924C2FF21007B22EB /* GithubAPIRef.swift in Sources */,
 				221C41F024BF6C3E0020A8D1 /* DetailViewController.swift in Sources */,
 				220C2AE124C0E6A5007B22EB /* GithubAPIAuth.swift in Sources */,
+				220C2AE724C21993007B22EB /* GithubAPI.swift in Sources */,
+				220C2AE524C21859007B22EB /* GithubAPIFile.swift in Sources */,
+				220C2AEB24C30103007B22EB /* GithubAPITree.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

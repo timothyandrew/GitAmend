@@ -28,7 +28,7 @@ class DetailViewController: UIViewController {
         configureView()
     }
 
-    var detailItem: NSDate? {
+    var detailItem: GithubAPIFile? {
         didSet {
             // Update the view.
             configureView()

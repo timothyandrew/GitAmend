@@ -11,13 +11,18 @@ import AuthenticationServices
 import Alamofire
 import KeychainAccess
 
+enum AccessTokenFetchMethod {
+    case Initial
+    case Refresh
+}
+
 class GithubAPIAuth: NSObject {
-    static func accessToken() -> String? {
+    static func getAccessToken() -> String? {
         let keychain = Keychain(service: "net.timothyandrew.GitAmend")
         return keychain["access_token"]
     }
     
-    static func refreshToken() -> String? {
+    static func getRefreshToken() -> String? {
         let keychain = Keychain(service: "net.timothyandrew.GitAmend")
         return keychain["refresh_token"]
     }
@@ -40,41 +45,69 @@ class GithubAPIAuth: NSObject {
                 let index = items.firstIndex(where: { $0.name == "code" }),
                 let code = items[index].value
                 else { return }
-                        
-            // Exchange `code` for a access & refresh tokens
-            AF.request("https://github.com/login/oauth/access_token", method: .post, parameters: [
-                "client_id": clientId,
-                "client_secret": Config.githubClientSecret(),
-                "code": code,
-            ], encoder: URLEncodedFormParameterEncoder.default).responseString { response in
-                guard response.response?.statusCode == 200,
-                    let response = response.value,
-                    let url = URL(string: response) else {
-                    // TODO: UI alert
-                    print("Failed 2")
-                    return
-                }
-                                
-                let segments = url.absoluteString.split(separator: "&")
-                let split = segments.compactMap { pair -> (Substring, Substring)? in
-                    let kv = pair.split(separator: "=")
-                    if (kv.count == 2) {
-                        return (kv[0], kv[1])
-                    } else {
-                        return nil
-                    }
-                }
-
-                // Save access & refresh tokens into the system Keychain
-                let dict: Dictionary = Dictionary(uniqueKeysWithValues: split)
-                let keychain = Keychain(service: "net.timothyandrew.GitAmend")
-                keychain["access_token"] =  String(dict["access_token"]!)
-                keychain["refresh_token"] = String(dict["refresh_token"]!)
-                                
-                print("Auth done!")
-            }
+            
+            fetchAccessToken(type: .Initial, code: code)
         }
         
         return session
+    }
+    
+    static func refreshAccessToken() {
+        // TODO: Fail gracefully if refresh token doesn't exist
+        fetchAccessToken(type: .Refresh, code: getRefreshToken()!)
+    }
+    
+    static func fetchAccessToken(type: AccessTokenFetchMethod, code: String) {
+        var params: Dictionary<String, String>
+        
+        // TODO: Fail gracefully if client id/secret isn't present
+        switch type {
+        case .Initial:
+            params = [
+                "client_id": Config.githubClientId()!,
+                "client_secret": Config.githubClientSecret()!,
+                "code": code,
+            ]
+        case .Refresh:
+            params = [
+                "client_id": Config.githubClientId()!,
+                "client_secret": Config.githubClientSecret()!,
+                "refresh_token": code,
+                "grant_type": "refresh_token"
+            ]
+        }
+        
+        print(params)
+        
+        // Exchange `code` for a access & refresh tokens
+        AF.request("https://github.com/login/oauth/access_token", method: .post, parameters: params, encoder: URLEncodedFormParameterEncoder.default).responseString { response in
+            guard response.response?.statusCode == 200,
+                let response = response.value,
+                let url = URL(string: response) else {
+                // TODO: UI alert
+                print("Failed 2")
+                return
+            }
+            
+            print(response)
+                            
+            let segments = url.absoluteString.split(separator: "&")
+            let split = segments.compactMap { pair -> (Substring, Substring)? in
+                let kv = pair.split(separator: "=")
+                if (kv.count == 2) {
+                    return (kv[0], kv[1])
+                } else {
+                    return nil
+                }
+            }
+
+            // Save access & refresh tokens into the system Keychain
+            let dict: Dictionary = Dictionary(uniqueKeysWithValues: split)
+            let keychain = Keychain(service: "net.timothyandrew.GitAmend")
+            keychain["access_token"] =  String(dict["access_token"]!)
+            keychain["refresh_token"] = String(dict["refresh_token"]!)
+
+            print("Auth done!")
+        }
     }
 }
