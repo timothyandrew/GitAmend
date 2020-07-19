@@ -9,6 +9,12 @@ class GithubAPIFile: NSObject, Decodable {
         self.path.split(separator: "/").suffix(3).joined(separator: "/")
     }
     
+    func fileExt() -> String {
+        let filename = self.path.split(separator: "/").last
+        let ext = filename?.split(separator: ".").last
+        return String(ext ?? "unknown")
+    }
+    
     func fetchContents(_ repo: String, _ completionHandler: @escaping (_ result: String?, _ error: String?) -> Void) {
         GithubAPI.request("repos/\(repo)/git/blobs/\(self.sha)", GithubAPIFileContents.self) { response in
             let contents: GithubAPIFileContents? = response.value

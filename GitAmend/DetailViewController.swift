@@ -15,6 +15,7 @@ class DetailViewController: UIViewController, UITextViewDelegate {
         if let file = maybeFile {
             self.textContent.delegate = self
             self.textContent.text = "Loading…"
+            self.title = file.prettyFilename()
 
             // TODO: Configurable repo
             file.fetchContents("timothyandrew/kb") { contents, error in
@@ -51,6 +52,7 @@ class DetailViewController: UIViewController, UITextViewDelegate {
             }
             
             file.sha = blobSha
+            self.navigationItem.rightBarButtonItem = nil
             let alert = AlertUtil.dismiss(title: "Success!", message: "Created commit \(commitSha)")
             self.present(alert, animated: true)
         }
