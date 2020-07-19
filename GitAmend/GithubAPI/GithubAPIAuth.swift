@@ -100,12 +100,20 @@ class GithubAPIAuth: NSObject {
                     return nil
                 }
             }
-
+            
             // Save access & refresh tokens into the system Keychain
             let dict: Dictionary = Dictionary(uniqueKeysWithValues: split)
+            
+            guard let access_token = dict["access_token"],
+                  let refresh_token = dict["refresh_token"] else {
+                // TODO: UI Alert
+                print("Failed to fetch access token")
+                return
+            }
+
             let keychain = Keychain(service: "net.timothyandrew.GitAmend")
-            keychain["access_token"] =  String(dict["access_token"]!)
-            keychain["refresh_token"] = String(dict["refresh_token"]!)
+            keychain["access_token"] =  String(access_token)
+            keychain["refresh_token"] = String(refresh_token)
 
             print("Auth done!")
         }

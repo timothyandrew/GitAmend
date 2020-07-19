@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		220AE65924C35328002E1D5B /* GithubAPIBlob.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220AE65824C35328002E1D5B /* GithubAPIBlob.swift */; };
+		220AE65B24C3691F002E1D5B /* GithubAPICommit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220AE65A24C3691F002E1D5B /* GithubAPICommit.swift */; };
+		220AE65E24C49064002E1D5B /* GithubAPIRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220AE65D24C49064002E1D5B /* GithubAPIRepository.swift */; };
 		220C2ADA24C0DD81007B22EB /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 220C2AD924C0DD81007B22EB /* KeychainAccess */; };
 		220C2ADD24C0DF5C007B22EB /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 220C2ADC24C0DF5C007B22EB /* Release.xcconfig */; };
 		220C2AE124C0E6A5007B22EB /* GithubAPIAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220C2AE024C0E6A5007B22EB /* GithubAPIAuth.swift */; };
@@ -15,6 +18,7 @@
 		220C2AE724C21993007B22EB /* GithubAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220C2AE624C21993007B22EB /* GithubAPI.swift */; };
 		220C2AE924C2FF21007B22EB /* GithubAPIRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220C2AE824C2FF21007B22EB /* GithubAPIRef.swift */; };
 		220C2AEB24C30103007B22EB /* GithubAPITree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220C2AEA24C30103007B22EB /* GithubAPITree.swift */; };
+		220C2AED24C33814007B22EB /* GithubAPIFileContents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220C2AEC24C33814007B22EB /* GithubAPIFileContents.swift */; };
 		221C41EA24BF6C3E0020A8D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221C41E924BF6C3E0020A8D1 /* AppDelegate.swift */; };
 		221C41EC24BF6C3E0020A8D1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221C41EB24BF6C3E0020A8D1 /* SceneDelegate.swift */; };
 		221C41EE24BF6C3E0020A8D1 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221C41ED24BF6C3E0020A8D1 /* MasterViewController.swift */; };
@@ -28,6 +32,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		220AE65824C35328002E1D5B /* GithubAPIBlob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubAPIBlob.swift; sourceTree = "<group>"; };
+		220AE65A24C3691F002E1D5B /* GithubAPICommit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubAPICommit.swift; sourceTree = "<group>"; };
+		220AE65D24C49064002E1D5B /* GithubAPIRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubAPIRepository.swift; sourceTree = "<group>"; };
 		220C2ADC24C0DF5C007B22EB /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		220C2ADE24C0DF93007B22EB /* Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
 		220C2AE024C0E6A5007B22EB /* GithubAPIAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubAPIAuth.swift; sourceTree = "<group>"; };
@@ -36,11 +43,12 @@
 		220C2AE624C21993007B22EB /* GithubAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubAPI.swift; sourceTree = "<group>"; };
 		220C2AE824C2FF21007B22EB /* GithubAPIRef.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubAPIRef.swift; sourceTree = "<group>"; };
 		220C2AEA24C30103007B22EB /* GithubAPITree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubAPITree.swift; sourceTree = "<group>"; };
+		220C2AEC24C33814007B22EB /* GithubAPIFileContents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubAPIFileContents.swift; sourceTree = "<group>"; };
 		221C41E624BF6C3E0020A8D1 /* GitAmend.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GitAmend.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		221C41E924BF6C3E0020A8D1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		221C41EB24BF6C3E0020A8D1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		221C41ED24BF6C3E0020A8D1 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
-		221C41EF24BF6C3E0020A8D1 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		221C41EF24BF6C3E0020A8D1 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; tabWidth = 1; };
 		221C41F224BF6C3E0020A8D1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		221C41F424BF6C400020A8D1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		221C41F724BF6C400020A8D1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -81,6 +89,10 @@
 				220C2AE624C21993007B22EB /* GithubAPI.swift */,
 				220C2AE824C2FF21007B22EB /* GithubAPIRef.swift */,
 				220C2AEA24C30103007B22EB /* GithubAPITree.swift */,
+				220C2AEC24C33814007B22EB /* GithubAPIFileContents.swift */,
+				220AE65824C35328002E1D5B /* GithubAPIBlob.swift */,
+				220AE65A24C3691F002E1D5B /* GithubAPICommit.swift */,
+				220AE65D24C49064002E1D5B /* GithubAPIRepository.swift */,
 			);
 			path = GithubAPI;
 			sourceTree = "<group>";
@@ -209,6 +221,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				221C420324BF6F200020A8D1 /* RootViewController.swift in Sources */,
+				220AE65924C35328002E1D5B /* GithubAPIBlob.swift in Sources */,
 				221C41EA24BF6C3E0020A8D1 /* AppDelegate.swift in Sources */,
 				221C41EC24BF6C3E0020A8D1 /* SceneDelegate.swift in Sources */,
 				220C2AE324C0E6BC007B22EB /* Config.swift in Sources */,
@@ -217,7 +230,10 @@
 				221C41F024BF6C3E0020A8D1 /* DetailViewController.swift in Sources */,
 				220C2AE124C0E6A5007B22EB /* GithubAPIAuth.swift in Sources */,
 				220C2AE724C21993007B22EB /* GithubAPI.swift in Sources */,
+				220AE65E24C49064002E1D5B /* GithubAPIRepository.swift in Sources */,
+				220C2AED24C33814007B22EB /* GithubAPIFileContents.swift in Sources */,
 				220C2AE524C21859007B22EB /* GithubAPIFile.swift in Sources */,
+				220AE65B24C3691F002E1D5B /* GithubAPICommit.swift in Sources */,
 				220C2AEB24C30103007B22EB /* GithubAPITree.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

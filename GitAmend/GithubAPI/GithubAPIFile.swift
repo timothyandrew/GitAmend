@@ -3,32 +3,25 @@ import UIKit
 class GithubAPIFile: NSObject, Decodable {
     let path: String
     let type: String
+    let sha: String
     
     func prettyFilename() -> String {
         self.path.split(separator: "/").suffix(3).joined(separator: "/")
     }
     
-    static func fetchAll(_ repo: String, _ completionHandler: @escaping (_ files: [GithubAPIFile], _ error: String?) -> Void) {
-        // TODO: Make branch configurable
-        GithubAPI.request("repos/\(repo)/git/ref/heads/master", GithubAPIRef.self) { response in
-            let ref: GithubAPIRef? = response.value
-            let maybeSha = ref?.object.sha
-
-            guard let sha = maybeSha else {
-                completionHandler([], "Failed attempting to fetch the `master` SHA")
+    func fetchContents(_ repo: String, _ completionHandler: @escaping (_ result: String?, _ error: String?) -> Void) {
+        GithubAPI.request("repos/\(repo)/git/blobs/\(self.sha)", GithubAPIFileContents.self) { response in
+            let contents: GithubAPIFileContents? = response.value
+            let maybeBase64 = contents?.content
+            
+            guard let base64 = maybeBase64,
+                  let data = Data(base64Encoded: base64, options: .ignoreUnknownCharacters),
+                  let str = String(data: data, encoding: .utf8) else {
+                completionHandler(nil, "Failed to decode base64 contents")
                 return
             }
-
-            GithubAPI.request("repos/\(repo)/git/trees/\(sha)?recursive=true", GithubAPITree.self) { response in
-                let maybeTree: GithubAPITree? = response.value
-
-                guard let tree = maybeTree else {
-                    completionHandler([], "Failed attempting to fetch files for SHA \(sha)")
-                    return
-                }
-
-                completionHandler(tree.files(), nil)
-            }
+            
+            completionHandler(str, nil)
         }
     }
 }

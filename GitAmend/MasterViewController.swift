@@ -18,8 +18,15 @@ class MasterViewController: UITableViewController {
         // Do any additional setup after loading the view.
         navigationItem.leftBarButtonItem = editButtonItem
         
-        GithubAPIFile.fetchAll("timothyandrew/kb") { files, error in
-            print("Fetched")
+        GithubAPIRepository.fetch(repo: "timothyandrew/kb") { maybeRepo in
+            guard let repo = maybeRepo else {
+                // TODO: UI alert
+                print("Failed to fetch repo")
+                return
+            }
+
+            print("Fetched repo: \(repo.path)")
+            let files = repo.tree.files()
             self.objects.append(contentsOf: files)
             self.tableView.reloadData()
         }
@@ -40,9 +47,9 @@ class MasterViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             if let indexPath = tableView.indexPathForSelectedRow {
-                let object = objects[indexPath.row]
+                let file = objects[indexPath.row]
                 let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
-                controller.detailItem = object
+                controller.detailItem = file
                 controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
                 controller.navigationItem.leftItemsSupplementBackButton = true
                 detailViewController = controller
