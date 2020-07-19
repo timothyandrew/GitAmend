@@ -59,7 +59,7 @@ class GithubAPIRepository: NSObject {
         }
     }
     
-    func persistFile(path filePath: String, contents: String, _ completion: @escaping (_ success: Bool) -> Void) {
+    func persistFile(path filePath: String, contents: String, _ completion: @escaping (_ commitSha: String?) -> Void) {
         print("Creating blob")
         GithubAPI.request("repos/\(self.path)/git/blobs", GithubAPIBlob.self, method: .Post, params: [
             "content": contents,
@@ -69,7 +69,7 @@ class GithubAPIRepository: NSObject {
             let maybeBlobSha = blob?.sha
             
             guard let blobSha = maybeBlobSha else {
-                completion(false)
+                completion(nil)
                 return
             }
                    
@@ -87,7 +87,7 @@ class GithubAPIRepository: NSObject {
                 let maybeTreeSha = tree?.sha
                 
                 guard let treeSha = maybeTreeSha else {
-                    completion(false)
+                    completion(nil)
                     return
                 }
                 
@@ -104,7 +104,7 @@ class GithubAPIRepository: NSObject {
                     let maybeCommitSha = commit?.sha
                     
                     guard let commitSha = maybeCommitSha else {
-                        completion(false)
+                        completion(nil)
                         return
                     }
                     
@@ -116,7 +116,7 @@ class GithubAPIRepository: NSObject {
                         let maybeRef: GithubAPIRef? = response.value
                         
                         guard let ref = maybeRef else {
-                            completion(false)
+                            completion(nil)
                             return
                         }
                         
@@ -125,7 +125,7 @@ class GithubAPIRepository: NSObject {
                         self.tree = tree!
                         
                         print("Created commit with SHA \(commitSha)")
-                        completion(true)
+                        completion(commitSha)
                     }
                 }
             }

@@ -38,16 +38,17 @@ class DetailViewController: UIViewController, UITextViewDelegate {
         
         // TODO: Block UI
         print("Attempting to commit file changes")
-        repo.persistFile(path: file.path, contents: self.textContent.text) { success in
-            if !success {
-                // TODO: UI Alert
+        repo.persistFile(path: file.path, contents: self.textContent.text) { commitSha in
+            guard let commit = commitSha else {
+                let alert = AlertUtil.dismiss(title: "Failed!", message: "Couldn't create a commit; changes were _not_ saved.")
+                self.present(alert, animated: true)
                 print("Failed to commit file")
+                return
             }
+            
+            let alert = AlertUtil.dismiss(title: "Success!", message: "Created commit \(commit)")
+            self.present(alert, animated: true)
         }
-        
-//        detail.save(overridingContentsWith: self.textContent.text, "timothyandrew/kb") { result in
-//            // TODO: Don't allow UI action until action completes
-//        }
     }
 
     override func viewDidLoad() {
