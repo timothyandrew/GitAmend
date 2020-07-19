@@ -52,12 +52,7 @@ class GithubAPIAuth: NSObject {
         return session
     }
     
-    static func refreshAccessToken() {
-        // TODO: Fail gracefully if refresh token doesn't exist
-        fetchAccessToken(type: .Refresh, code: getRefreshToken()!)
-    }
-    
-    static func fetchAccessToken(type: AccessTokenFetchMethod, code: String) {
+    static func fetchAccessToken(type: AccessTokenFetchMethod, code: String, _ completion: ((_ success: Bool) -> Void)? = nil) {
         var params: Dictionary<String, String>
         
         // TODO: Fail gracefully if client id/secret isn't present
@@ -86,6 +81,7 @@ class GithubAPIAuth: NSObject {
                 let url = URL(string: response) else {
                 // TODO: UI alert
                 print("Failed 2")
+                completion?(false)
                 return
             }
             
@@ -107,7 +103,8 @@ class GithubAPIAuth: NSObject {
             guard let access_token = dict["access_token"],
                   let refresh_token = dict["refresh_token"] else {
                 // TODO: UI Alert
-                print("Failed to fetch access token")
+                print("Failed to fetch token")
+                completion?(false)
                 return
             }
 
@@ -116,6 +113,8 @@ class GithubAPIAuth: NSObject {
             keychain["refresh_token"] = String(refresh_token)
 
             print("Auth done!")
+            
+            completion?(true)
         }
     }
 }

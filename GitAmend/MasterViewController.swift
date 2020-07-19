@@ -75,5 +75,12 @@ class MasterViewController: UITableViewController {
         cell.textLabel!.text = object.prettyFilename()
         return cell
     }
+    
+    // MARK: - Custom
+    
+    @objc
+    func addNewFile() {
+        
+    }
 }
 

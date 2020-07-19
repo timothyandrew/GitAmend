@@ -54,10 +54,17 @@ class GithubAPI: NSObject {
                     return
                 }
                 
+                // TODO: UI alert if refresh fails
                 if (attempt < 2) {
                     print("Got a 401. Attempting to refresh access token and retry; attempts so far: \(attempt)")
-                    GithubAPIAuth.refreshAccessToken()
-                    request(path, type, attempt: attempt + 1, method: method, params: params, completionHandler)
+                    GithubAPIAuth.fetchAccessToken(type: .Refresh, code: GithubAPIAuth.getRefreshToken()!) { success in
+                        if success {
+                            request(path, type, attempt: attempt + 1, method: method, params: params, completionHandler)
+                        } else {
+                            print("Failed to refresh token")
+                        }
+                        
+                    }
                 } else {
                     print("Failed to refresh access token after \(attempt) retries.")
                 }
