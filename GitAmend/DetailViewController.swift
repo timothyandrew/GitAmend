@@ -36,10 +36,14 @@ class DetailViewController: UIViewController, UITextViewDelegate {
             return
         }
         
-        // TODO: Block UI
         print("Attempting to commit file changes")
+        let fullscreenAlert = AlertUtil.blockScreen()
+        self.present(fullscreenAlert, animated: true)
+
         repo.persistFile(path: file.path, contents: self.textContent.text) { shas in
-            guard let (blobSha, treeSha, commitSha) = shas else {
+            fullscreenAlert.dismiss(animated: true)
+
+            guard let (blobSha, _, commitSha) = shas else {
                 let alert = AlertUtil.dismiss(title: "Failed!", message: "Couldn't create a commit; changes were _not_ saved.")
                 self.present(alert, animated: true)
                 print("Failed to commit file")
