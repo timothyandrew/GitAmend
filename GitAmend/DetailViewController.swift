@@ -38,15 +38,16 @@ class DetailViewController: UIViewController, UITextViewDelegate {
         
         // TODO: Block UI
         print("Attempting to commit file changes")
-        repo.persistFile(path: file.path, contents: self.textContent.text) { commitSha in
-            guard let commit = commitSha else {
+        repo.persistFile(path: file.path, contents: self.textContent.text) { shas in
+            guard let (blobSha, treeSha, commitSha) = shas else {
                 let alert = AlertUtil.dismiss(title: "Failed!", message: "Couldn't create a commit; changes were _not_ saved.")
                 self.present(alert, animated: true)
                 print("Failed to commit file")
                 return
             }
             
-            let alert = AlertUtil.dismiss(title: "Success!", message: "Created commit \(commit)")
+            file.sha = blobSha
+            let alert = AlertUtil.dismiss(title: "Success!", message: "Created commit \(commitSha)")
             self.present(alert, animated: true)
         }
     }

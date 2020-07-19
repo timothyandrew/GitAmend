@@ -59,7 +59,7 @@ class GithubAPIRepository: NSObject {
         }
     }
     
-    func persistFile(path filePath: String, contents: String, _ completion: @escaping (_ commitSha: String?) -> Void) {
+    func persistFile(path filePath: String, contents: String, _ completion: @escaping (_ shas: (String, String, String)?) -> Void) {
         print("Creating blob")
         GithubAPI.request("repos/\(self.path)/git/blobs", GithubAPIBlob.self, method: .Post, params: [
             "content": contents,
@@ -125,7 +125,7 @@ class GithubAPIRepository: NSObject {
                         self.tree = tree!
                         
                         print("Created commit with SHA \(commitSha)")
-                        completion(commitSha)
+                        completion((blobSha, treeSha, commitSha))
                     }
                 }
             }

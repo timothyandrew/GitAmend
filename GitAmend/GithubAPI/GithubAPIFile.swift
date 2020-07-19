@@ -3,7 +3,7 @@ import UIKit
 class GithubAPIFile: NSObject, Decodable {
     let path: String
     let type: String
-    let sha: String
+    var sha: String
     
     func prettyFilename() -> String {
         self.path.split(separator: "/").suffix(3).joined(separator: "/")
