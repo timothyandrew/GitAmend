@@ -9,10 +9,14 @@
 import UIKit
 
 class GithubAPIRepository: NSObject {
-    let path: String
-    let ref: GithubAPIRef
-    let commit: GithubAPICommit
-    let tree: GithubAPITree
+    // TODO: Make branch configurable
+    static let defaultRefName = "heads/master"
+    
+    // TODO: private(set) public var
+    var path: String
+    var ref: GithubAPIRef
+    var commit: GithubAPICommit
+    var tree: GithubAPITree
     
     init(_ path: String, _ ref: GithubAPIRef, _ commit: GithubAPICommit, _ tree: GithubAPITree) {
         self.path = path
@@ -22,8 +26,7 @@ class GithubAPIRepository: NSObject {
     }
     
     static func fetch(repo: String, _ completion: @escaping (_ repo: GithubAPIRepository?) -> Void) {
-        // TODO: Make branch configurable
-        GithubAPI.request("repos/\(repo)/git/ref/heads/master", GithubAPIRef.self) { response in
+        GithubAPI.request("repos/\(repo)/git/ref/\(defaultRefName)", GithubAPIRef.self) { response in
             let ref: GithubAPIRef? = response.value
             let maybeSha = ref?.object.sha
 
@@ -51,6 +54,79 @@ class GithubAPIRepository: NSObject {
 
                     let repo = GithubAPIRepository(repo, ref!, commit!, tree)
                     completion(repo)
+                }
+            }
+        }
+    }
+    
+    func persistFile(path filePath: String, contents: String, _ completion: @escaping (_ success: Bool) -> Void) {
+        print("Creating blob")
+        GithubAPI.request("repos/\(self.path)/git/blobs", GithubAPIBlob.self, method: .Post, params: [
+            "content": contents,
+            "encoding": "utf-8"
+        ]) { response in
+            let blob: GithubAPIBlob? = response.value
+            let maybeBlobSha = blob?.sha
+            
+            guard let blobSha = maybeBlobSha else {
+                completion(false)
+                return
+            }
+                   
+            print("Creating tree")
+            GithubAPI.request("repos/\(self.path)/git/trees", GithubAPITree.self, method: .Post, params: [
+                "base_tree": self.tree.sha,
+                "tree": [[
+                    "path": filePath,
+                    "mode": "100644",
+                    "type": "blob",
+                    "sha": blobSha
+                ]]
+            ]) { response in
+                let tree: GithubAPITree? = response.value
+                let maybeTreeSha = tree?.sha
+                
+                guard let treeSha = maybeTreeSha else {
+                    completion(false)
+                    return
+                }
+                
+                // TODO: Make this customizable
+                let message = "Created at \(NSDate().timeIntervalSince1970) by the GitAmend app."
+                
+                print("Creating commit")
+                GithubAPI.request("repos/\(self.path)/git/commits", GithubAPICommit.self, method: .Post, params: [
+                    "message": message,
+                    "tree": treeSha,
+                    "parents": [self.commit.sha]
+                ]) { response in
+                    let commit: GithubAPICommit? = response.value
+                    let maybeCommitSha = commit?.sha
+                    
+                    guard let commitSha = maybeCommitSha else {
+                        completion(false)
+                        return
+                    }
+                    
+                    print("Creating ref")
+                    GithubAPI.request("repos/\(self.path)/git/refs/\(GithubAPIRepository.defaultRefName)", GithubAPIRef.self, method: .Patch, params: [
+                        "sha": commitSha,
+                        "force": false
+                    ]) { response in
+                        let maybeRef: GithubAPIRef? = response.value
+                        
+                        guard let ref = maybeRef else {
+                            completion(false)
+                            return
+                        }
+                        
+                        self.ref = ref
+                        self.commit = commit!
+                        self.tree = tree!
+                        
+                        print("Created commit with SHA \(commitSha)")
+                        completion(true)
+                    }
                 }
             }
         }

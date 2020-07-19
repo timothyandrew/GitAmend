@@ -10,6 +10,7 @@ import UIKit
 
 class MasterViewController: UITableViewController {
     var detailViewController: DetailViewController? = nil
+    var repo: GithubAPIRepository?
     var objects = [GithubAPIFile]()
 
 
@@ -29,6 +30,7 @@ class MasterViewController: UITableViewController {
             let files = repo.tree.files()
             self.objects.append(contentsOf: files)
             self.tableView.reloadData()
+            self.repo = repo
         }
         
         if let split = splitViewController {
@@ -49,7 +51,8 @@ class MasterViewController: UITableViewController {
             if let indexPath = tableView.indexPathForSelectedRow {
                 let file = objects[indexPath.row]
                 let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
-                controller.detailItem = file
+                controller.maybeFile = file
+                controller.maybeRepo = repo
                 controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
                 controller.navigationItem.leftItemsSupplementBackButton = true
                 detailViewController = controller

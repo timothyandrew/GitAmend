@@ -13,6 +13,7 @@ class GithubAPI: NSObject {
     enum Method {
         case Post
         case Get
+        case Patch
     }
     
     static func request<T: Decodable>(_ path: String,
@@ -37,6 +38,8 @@ class GithubAPI: NSObject {
         switch method {
         case .Post:
             req = AF.request("https://api.github.com/\(path)", method: .post, parameters: params!, encoding: JSONEncoding.default, headers: auth)
+        case .Patch:
+            req = AF.request("https://api.github.com/\(path)", method: .patch, parameters: params!, encoding: JSONEncoding.default, headers: auth)
         case .Get:
             req = AF.request("https://api.github.com/\(path)", headers: auth)
         }
