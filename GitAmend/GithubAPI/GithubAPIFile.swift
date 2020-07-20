@@ -10,11 +10,19 @@ class GithubAPIFile: NSObject, Decodable {
         self.type = "blob"
     }
     
+    func shouldTrim(_ s: [Substring]) -> Bool {
+        if (s.contains("inbox")) {
+            return false
+        }
+        
+        return true
+    }
+    
     func prettyFilename(trimPath: Bool = true) -> String {
         var segments = self.path.split(separator: "/")
         segments.removeFirst()
         
-        if (trimPath) {
+        if (trimPath && shouldTrim(segments)) {
             segments = segments.map { s in
                 s == segments.last ? s : s.prefix(5)
             }
