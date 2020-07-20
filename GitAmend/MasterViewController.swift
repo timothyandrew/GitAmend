@@ -64,6 +64,11 @@ class MasterViewController: UITableViewController, UISearchResultsUpdating {
                 let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
                 controller.maybeFile = file
                 controller.maybeRepo = repo
+                
+                if !file.isPersisted() {
+                    controller.state = .Editing                    
+                }
+                
                 controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
                 controller.navigationItem.leftItemsSupplementBackButton = true
                 detailViewController = controller
@@ -111,8 +116,8 @@ class MasterViewController: UITableViewController, UISearchResultsUpdating {
     }
     
     func refreshTableWithoutFetch() {
-        let files = repo?.tree.files()
-        self.objects = files ?? []
+        let treeFiles = repo?.tree.files()
+        self.objects = treeFiles ?? []
         self.tableView.reloadData()
     }
     

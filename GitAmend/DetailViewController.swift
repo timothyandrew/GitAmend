@@ -10,7 +10,7 @@ import UIKit
 import Ink
 import WebKit
 
-class DetailViewController: UIViewController, UITextViewDelegate {
+class DetailViewController: UIViewController, WKNavigationDelegate {
     enum State {
         case Viewing
         case Editing
@@ -23,10 +23,14 @@ class DetailViewController: UIViewController, UITextViewDelegate {
     var text: String?
     
     func configureView() {
+        let insets = self.detailView.safeAreaInsets
+        let frame = self.detailView.frame.inset(by: insets)
+
         switch state {
         case .Viewing:
             self.navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(self.startEditing))]
-            self.webView = WKWebView(frame: self.detailView.frame)
+            self.webView = WKWebView(frame: frame)
+            self.webView!.navigationDelegate = self
             self.textView?.removeFromSuperview()
             self.detailView.addSubview(self.webView!)
 
@@ -35,8 +39,7 @@ class DetailViewController: UIViewController, UITextViewDelegate {
                 UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.stopEditing)),
                 UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(self.commitChanges))
             ]
-            self.textView = UITextView(frame: self.detailView.frame)
-            self.textView!.delegate = self
+            self.textView = UITextView(frame: frame)
             self.textView!.isEditable = true
             self.textView!.isSelectable = true
             
@@ -129,9 +132,15 @@ class DetailViewController: UIViewController, UITextViewDelegate {
     var maybeRepo: GithubAPIRepository?
     var maybeFile: GithubAPIFile?
     
-    // MARK: - Text View Delegate
+    // MARK: - Delegate
     
-    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        true
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        if let url = navigationAction.request.url,
+           url.host != "timothyandrew.net" {
+            decisionHandler(.cancel)
+            UIApplication.shared.open(url)
+        } else {
+            decisionHandler(.allow)
+        }
     }
 }

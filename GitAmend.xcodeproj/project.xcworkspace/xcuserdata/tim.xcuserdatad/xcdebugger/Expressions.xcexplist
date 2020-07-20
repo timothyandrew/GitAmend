@@ -6,6 +6,17 @@
          contextName = "MasterViewController.prepare(for:sender:):MasterViewController.swift">
       </ContextState>
       <ContextState
+         contextName = "MasterViewController.tableView(_:cellForRowAt:):MasterViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "DetailViewController.webView(_:decidePolicyFor:decisionHandler:):DetailViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "navigationAction.request.url">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "MasterViewController.tableView(_:numberOfRowsInSection:):MasterViewController.swift">
          <PersistentStrings>
             <PersistentString

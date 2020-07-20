@@ -18,6 +18,10 @@ class GithubAPIFile: NSObject, Decodable {
         return true
     }
     
+    func isPersisted() -> Bool {
+        return sha != nil
+    }
+    
     func prettyFilename(trimPath: Bool = true) -> String {
         var segments = self.path.split(separator: "/")
         segments.removeFirst()
@@ -45,7 +49,7 @@ class GithubAPIFile: NSObject, Decodable {
     
     func fetchContents(_ repo: String, _ completionHandler: @escaping (_ result: String?, _ error: String?) -> Void) {
         guard let sha = self.sha else {
-            completionHandler("", nil)
+            completionHandler("---\ntitle: \"\"\n\n* *\n\n", nil)
             return
         }
         
