@@ -7,14 +7,50 @@
 //
 
 import UIKit
+import Ink
+import WebKit
 
 class DetailViewController: UIViewController, UITextViewDelegate {
-    @IBOutlet weak var textContent: UITextView!
+    enum State {
+        case Viewing
+        case Editing
+    }
+    
+    @IBOutlet weak var detailView: UIView!
+    var textView: UITextView?
+    var webView: WKWebView?
+    var state = State.Viewing
+    var text: String?
+    var alert: UIAlertController?
     
     func configureView() {
+        switch state {
+        case .Viewing:
+            self.navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(self.startEditing))]
+            self.webView = WKWebView(frame: self.detailView.frame)
+            self.textView?.removeFromSuperview()
+            self.detailView.addSubview(self.webView!)
+
+        case .Editing:
+            self.navigationItem.rightBarButtonItems = [
+                UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.stopEditing)),
+                UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(self.commitChanges))
+            ]
+            self.textView = UITextView(frame: self.detailView.frame)
+            self.textView!.delegate = self
+            self.textView!.isEditable = true
+            self.textView!.isSelectable = true
+            
+            self.webView?.removeFromSuperview()
+            self.detailView.addSubview(self.textView!)
+        }
+        
+        guard text == nil else {
+            configureText()
+            return
+        }
+        
         if let file = maybeFile {
-            self.textContent.delegate = self
-            self.textContent.text = "Loading…"
             self.title = file.prettyFilename()
 
             // TODO: Configurable repo
@@ -23,25 +59,50 @@ class DetailViewController: UIViewController, UITextViewDelegate {
                     // use error
                     return
                 }
-                
-                self.textContent.text = text
+            
+                self.text = text
+                self.configureText()
+                self.alert?.dismiss(animated: true)
             }
+        } else {
+            self.alert?.dismiss(animated: true)
         }
     }
     
-    @objc
-    func commitChanges() {
+    func configureText() {
+        switch state {
+        case .Viewing:
+            let html = MarkdownParser().html(from: self.text!)
+            self.webView!.loadHTMLString(HTMLUtil.defaultTemplate(content: html), baseURL: URL(string: "https://timothyandrew.net"))
+        case .Editing:
+            self.textView!.text = self.text!
+        }
+    }
+    
+    @objc func startEditing() {
+        self.state = .Editing
+        configureView()
+    }
+    
+    @objc func stopEditing() {
+        self.state = .Viewing
+        self.configureView()
+    }
+    
+    @objc func commitChanges() {
         guard let repo = self.maybeRepo,
               let file = self.maybeFile else {
             print("No `detail` found; shouldn't ever get here!")
             return
         }
         
+        self.text = self.textView!.text
+        
         print("Attempting to commit file changes")
         let fullscreenAlert = AlertUtil.blockScreen()
         self.present(fullscreenAlert, animated: true)
 
-        repo.persistFile(path: file.path, contents: self.textContent.text) { shas in
+        repo.persistFile(path: file.path, contents: self.text!) { shas in
             fullscreenAlert.dismiss(animated: true)
 
             guard let (blobSha, _, commitSha) = shas else {
@@ -52,7 +113,8 @@ class DetailViewController: UIViewController, UITextViewDelegate {
             }
             
             file.sha = blobSha
-            self.navigationItem.rightBarButtonItem = nil
+
+            self.stopEditing()
             
             let alert = AlertUtil.dismiss(title: "Success!", message: "Created commit \(commitSha)")
             self.present(alert, animated: true)
@@ -61,13 +123,19 @@ class DetailViewController: UIViewController, UITextViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.alert = AlertUtil.blockScreen()
+        present(self.alert!, animated: true)
+        
         configureView()
     }
 
     var maybeRepo: GithubAPIRepository?
     var maybeFile: GithubAPIFile?
     
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(self.commitChanges))
+    // MARK: - Text View Delegate
+    
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        true
     }
 }

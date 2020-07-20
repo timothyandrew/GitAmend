@@ -32,6 +32,9 @@
 		221C420624BF74440020A8D1 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 221C420524BF74440020A8D1 /* Alamofire */; };
 		2263609024C5652E00807146 /* DateUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2263608F24C5652E00807146 /* DateUtil.swift */; };
 		2263609224C567B600807146 /* GAPaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2263609124C567B600807146 /* GAPaths.swift */; };
+		2263609524C57EE100807146 /* Down in Frameworks */ = {isa = PBXBuildFile; productRef = 2263609424C57EE100807146 /* Down */; };
+		2263609824C588BE00807146 /* Ink in Frameworks */ = {isa = PBXBuildFile; productRef = 2263609724C588BE00807146 /* Ink */; };
+		2263609A24C5892900807146 /* HTMLUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2263609924C5892900807146 /* HTMLUtil.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +64,7 @@
 		221C420224BF6F200020A8D1 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		2263608F24C5652E00807146 /* DateUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtil.swift; sourceTree = "<group>"; };
 		2263609124C567B600807146 /* GAPaths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GAPaths.swift; sourceTree = "<group>"; };
+		2263609924C5892900807146 /* HTMLUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLUtil.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,7 +72,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2263609524C57EE100807146 /* Down in Frameworks */,
 				221C420124BF6C510020A8D1 /* AuthenticationServices.framework in Frameworks */,
+				2263609824C588BE00807146 /* Ink in Frameworks */,
 				221C420624BF74440020A8D1 /* Alamofire in Frameworks */,
 				220C2ADA24C0DD81007B22EB /* KeychainAccess in Frameworks */,
 			);
@@ -82,6 +88,7 @@
 			children = (
 				220AE66024C49CC8002E1D5B /* AlertUtil.swift */,
 				2263608F24C5652E00807146 /* DateUtil.swift */,
+				2263609924C5892900807146 /* HTMLUtil.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -184,6 +191,8 @@
 			packageProductDependencies = (
 				221C420524BF74440020A8D1 /* Alamofire */,
 				220C2AD924C0DD81007B22EB /* KeychainAccess */,
+				2263609424C57EE100807146 /* Down */,
+				2263609724C588BE00807146 /* Ink */,
 			);
 			productName = GitAmend;
 			productReference = 221C41E624BF6C3E0020A8D1 /* GitAmend.app */;
@@ -216,6 +225,8 @@
 			packageReferences = (
 				221C420424BF74440020A8D1 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				220C2AD824C0DD81007B22EB /* XCRemoteSwiftPackageReference "KeychainAccess" */,
+				2263609324C57EE100807146 /* XCRemoteSwiftPackageReference "Down" */,
+				2263609624C588BE00807146 /* XCRemoteSwiftPackageReference "Ink" */,
 			);
 			productRefGroup = 221C41E724BF6C3E0020A8D1 /* Products */;
 			projectDirPath = "";
@@ -263,6 +274,7 @@
 				2263609024C5652E00807146 /* DateUtil.swift in Sources */,
 				220AE65B24C3691F002E1D5B /* GithubAPICommit.swift in Sources */,
 				220C2AEB24C30103007B22EB /* GithubAPITree.swift in Sources */,
+				2263609A24C5892900807146 /* HTMLUtil.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -480,6 +492,22 @@
 				minimumVersion = 5.2.1;
 			};
 		};
+		2263609324C57EE100807146 /* XCRemoteSwiftPackageReference "Down" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/iwasrobbed/Down";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.3;
+			};
+		};
+		2263609624C588BE00807146 /* XCRemoteSwiftPackageReference "Ink" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/JohnSundell/Ink";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.5.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -492,6 +520,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 221C420424BF74440020A8D1 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		2263609424C57EE100807146 /* Down */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2263609324C57EE100807146 /* XCRemoteSwiftPackageReference "Down" */;
+			productName = Down;
+		};
+		2263609724C588BE00807146 /* Ink */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2263609624C588BE00807146 /* XCRemoteSwiftPackageReference "Ink" */;
+			productName = Ink;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
