@@ -85,6 +85,8 @@ class MasterViewController: UITableViewController {
         let alert = AlertUtil.prompt(title: "New Learning Note", message: "Enter a filename") { filename in
             self.repo?.createTransientFile(path: GAPaths.learningNote(name: filename))
             self.refreshTableWithoutFetch()
+            self.tableView.selectRow(at: IndexPath(arrayLiteral: 0, 0), animated: true, scrollPosition: .top)
+            self.performSegue(withIdentifier: "showDetail", sender: self.tableView)
         }
         present(alert, animated: true)
     }
