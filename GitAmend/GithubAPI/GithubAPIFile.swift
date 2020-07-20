@@ -10,12 +10,20 @@ class GithubAPIFile: NSObject, Decodable {
         self.type = "blob"
     }
     
-    func prettyFilename() -> String {
-        let filename = self.path.split(separator: "/").suffix(3).joined(separator: "/")
+    func prettyFilename(trimPath: Bool = true) -> String {
+        var segments = self.path.split(separator: "/")
+        segments.removeFirst()
+        
+        if (trimPath) {
+            segments = segments.map { s in
+                s == segments.last ? s : s.prefix(5)
+            }
+        }
+        
+        let filename = segments.joined(separator: "/")
         
         if sha == nil {
             return "[A] \(filename)"
-            
         } else {
             return filename
         }

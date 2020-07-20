@@ -3,10 +3,13 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "closure #2 in closure #1 in RootViewController.viewDidAppear(_:):RootViewController.swift">
+         contextName = "MasterViewController.prepare(for:sender:):MasterViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "MasterViewController.tableView(_:numberOfRowsInSection:):MasterViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "response.response?.statusCode">
+               value = "objects">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -15,6 +18,14 @@
          <PersistentStrings>
             <PersistentString
                value = "url">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #2 in closure #1 in RootViewController.viewDidAppear(_:):RootViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "response.response?.statusCode">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

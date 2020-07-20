@@ -50,7 +50,7 @@ class DetailViewController: UIViewController, UITextViewDelegate {
         }
         
         if let file = maybeFile {
-            self.title = file.prettyFilename()
+            self.title = file.prettyFilename(trimPath: false)
             
             let alert = AlertUtil.blockScreen()
             present(alert, animated: true)

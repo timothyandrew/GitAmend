@@ -8,22 +8,41 @@
 
 import UIKit
 
-class MasterViewController: UITableViewController {
+class MasterViewController: UITableViewController, UISearchResultsUpdating {
     
     let refresh = UIRefreshControl()
     var detailViewController: DetailViewController? = nil
     var repo: GithubAPIRepository?
     var objects = [GithubAPIFile]()
+    let searchController = UISearchController(searchResultsController: nil)
+    var searchQuery = ""
+    
+    var files: [GithubAPIFile] {
+        if (searchQuery == "") {
+            return objects
+        } else {
+            return objects.filter { $0.path.contains(self.searchQuery) }
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Pull-to-refresh
         self.refreshControl = refresh
         refresh.addTarget(self, action: #selector(refreshTableWithFetch), for: .valueChanged)
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewFile))
-        
-        refresh.beginRefreshing()
         refreshTableWithFetch()
+        
+        // Search
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Find file…"
+        searchController.hidesNavigationBarDuringPresentation = false
+        tableView.tableHeaderView = searchController.searchBar
+        tableView.contentOffset = CGPoint(x: 0, y: searchController.searchBar.frame.height)
+        navigationItem.hidesSearchBarWhenScrolling = true
+        definesPresentationContext = true
         
         if let split = splitViewController {
             let controllers = split.viewControllers
@@ -41,7 +60,7 @@ class MasterViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             if let indexPath = tableView.indexPathForSelectedRow {
-                let file = objects[indexPath.row]
+                let file = files[indexPath.row]
                 let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
                 controller.maybeFile = file
                 controller.maybeRepo = repo
@@ -59,13 +78,13 @@ class MasterViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return objects.count
+        self.files.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        let object = objects[indexPath.row]
-        cell.textLabel!.text = object.prettyFilename()
+        let file = self.files[indexPath.row]
+        cell.textLabel!.text = file.prettyFilename()
         return cell
     }
     
@@ -115,6 +134,14 @@ class MasterViewController: UITableViewController {
             
             self.refresh.endRefreshing()
         }
+    }
+    
+    // MARK: - Search
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        let text = searchController.searchBar.text!
+        self.searchQuery = text.lowercased()
+        self.tableView.reloadData()
     }
 }
 
