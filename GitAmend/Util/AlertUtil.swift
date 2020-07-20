@@ -26,4 +26,15 @@ class AlertUtil: NSObject {
 
         return alert
     }
+    
+    static func sheet(title: String, actions: [(String, (UIAlertAction) -> Void)]) -> UIAlertController {
+        let alert = UIAlertController(title: title, message: nil, preferredStyle: .actionSheet)
+        
+        for (title, completion) in actions {
+            alert.addAction(UIAlertAction(title: title, style: .default, handler: completion))
+        }
+        
+        
+        return alert
+    }
 }

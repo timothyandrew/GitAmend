@@ -9,28 +9,20 @@
 import UIKit
 
 class MasterViewController: UITableViewController {
+    let refresh = UIRefreshControl()
     var detailViewController: DetailViewController? = nil
     var repo: GithubAPIRepository?
     var objects = [GithubAPIFile]()
 
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.leftBarButtonItem = nil
         
-        GithubAPIRepository.fetch(repo: "timothyandrew/kb") { maybeRepo in
-            guard let repo = maybeRepo else {
-                // TODO: UI alert
-                print("Failed to fetch repo")
-                return
-            }
-
-            print("Fetched repo: \(repo.path)")
-            let files = repo.tree.files()
-            self.objects.append(contentsOf: files)
-            self.tableView.reloadData()
-            self.repo = repo
-        }
+        self.refreshControl = refresh
+        refresh.addTarget(self, action: #selector(refreshTable), for: .valueChanged)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewFile))
+        
+        refresh.beginRefreshing()
+        refreshTable()
         
         if let split = splitViewController {
             let controllers = split.viewControllers
@@ -79,8 +71,33 @@ class MasterViewController: UITableViewController {
     // MARK: - Custom
     
     @objc
-    func addNewFile() {
-        
+    func addNewFile(_ sender: UIBarButtonItem) {
+        let alert = AlertUtil.sheet(title: "Add a File", actions: [
+            ("Learning Note", { _ in print("Learning") }),
+            ("Journal Entry", { _ in print("LearningX") })
+        ])
+        alert.popoverPresentationController?.barButtonItem = sender
+        self.present(alert, animated: true)
+    }
+    
+    @objc
+    func refreshTable() {
+        print("Attempting to fetch repo")
+        GithubAPIRepository.fetch(repo: "timothyandrew/kb") { maybeRepo in
+            guard let repo = maybeRepo else {
+                // TODO: UI alert
+                print("Failed to fetch repo")
+                return
+            }
+
+            print("Fetched repo: \(repo.path)")
+            let files = repo.tree.files()
+            self.objects.append(contentsOf: files)
+            self.tableView.reloadData()
+            self.repo = repo
+            
+            self.refresh.endRefreshing()
+        }
     }
 }
 

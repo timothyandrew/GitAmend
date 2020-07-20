@@ -54,16 +54,19 @@ class GithubAPIAuth: NSObject {
     
     static func fetchAccessToken(type: AccessTokenFetchMethod, code: String, _ completion: ((_ success: Bool) -> Void)? = nil) {
         var params: Dictionary<String, String>
+        var encoder: ParameterEncoder
         
         // TODO: Fail gracefully if client id/secret isn't present
         switch type {
         case .Initial:
+            encoder = JSONParameterEncoder.default
             params = [
                 "client_id": Config.githubClientId()!,
                 "client_secret": Config.githubClientSecret()!,
                 "code": code,
             ]
         case .Refresh:
+            encoder = URLEncodedFormParameterEncoder.default
             params = [
                 "client_id": Config.githubClientId()!,
                 "client_secret": Config.githubClientSecret()!,
@@ -75,10 +78,8 @@ class GithubAPIAuth: NSObject {
         print(params)
         
         // Exchange `code` for a access & refresh tokens
-        AF.request("https://github.com/login/oauth/access_token", method: .post, parameters: params, encoder: URLEncodedFormParameterEncoder.default).responseString { response in
-            guard response.response?.statusCode == 200,
-                let response = response.value,
-                let url = URL(string: response) else {
+        AF.request("https://github.com/login/oauth/access_token", method: .post, parameters: params, encoder: encoder).validate().responseString { response in
+            guard let response = response.value else {
                 // TODO: UI alert
                 print("Failed 2")
                 completion?(false)
@@ -87,7 +88,7 @@ class GithubAPIAuth: NSObject {
             
             print(response)
                             
-            let segments = url.absoluteString.split(separator: "&")
+            let segments = response.split(separator: "&")
             let split = segments.compactMap { pair -> (Substring, Substring)? in
                 let kv = pair.split(separator: "=")
                 if (kv.count == 2) {
