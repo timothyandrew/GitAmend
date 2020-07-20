@@ -103,24 +103,24 @@ class DetailViewController: UIViewController, WKNavigationDelegate {
         
         print("Attempting to commit file changes")
         let fullscreenAlert = AlertUtil.blockScreen()
-        self.present(fullscreenAlert, animated: true)
+        self.present(fullscreenAlert, animated: true) {
+            repo.persistFile(path: file.path, contents: self.text!) { shas in
+                fullscreenAlert.dismiss(animated: true)
 
-        repo.persistFile(path: file.path, contents: self.text!) { shas in
-            fullscreenAlert.dismiss(animated: true)
+                guard let (blobSha, _, commitSha) = shas else {
+                    let alert = AlertUtil.dismiss(title: "Failed!", message: "Couldn't create a commit; changes were _not_ saved.")
+                    self.present(alert, animated: true)
+                    print("Failed to commit file")
+                    return
+                }
+                
+                file.sha = blobSha
 
-            guard let (blobSha, _, commitSha) = shas else {
-                let alert = AlertUtil.dismiss(title: "Failed!", message: "Couldn't create a commit; changes were _not_ saved.")
+                self.stopEditing()
+                
+                let alert = AlertUtil.dismiss(title: "Success!", message: "Created commit \(commitSha)")
                 self.present(alert, animated: true)
-                print("Failed to commit file")
-                return
             }
-            
-            file.sha = blobSha
-
-            self.stopEditing()
-            
-            let alert = AlertUtil.dismiss(title: "Success!", message: "Created commit \(commitSha)")
-            self.present(alert, animated: true)
         }
     }
 
