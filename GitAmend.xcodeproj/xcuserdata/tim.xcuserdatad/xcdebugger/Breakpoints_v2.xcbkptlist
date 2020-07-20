@@ -23,22 +23,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "B2B9B286-59AD-464A-9B35-72190546369D"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "GitAmend/DetailViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "63"
-            endingLineNumber = "63"
-            landmarkName = "configureView()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "42706CFD-C19D-4092-8338-3EFE26EB600C"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -50,54 +34,6 @@
             endingLineNumber = "28"
             landmarkName = "fetch(repo:_:)"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "74894B72-0BCB-442A-8A5A-CA48DECD857D"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "GitAmend/DetailViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "62"
-            endingLineNumber = "62"
-            landmarkName = "configureView()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "74894B72-0BCB-442A-8A5A-CA48DECD857D - 2e84c503f9ae46de"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "GitAmend.DetailViewController.configureView() -&gt; ()"
-                  moduleName = "GitAmend"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/tim/dev/GitAmend/GitAmend/DetailViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "21"
-                  endingLineNumber = "21"
-                  offsetFromSymbolStart = "793">
-               </Location>
-               <Location
-                  uuid = "74894B72-0BCB-442A-8A5A-CA48DECD857D - f9592d402d6ed864"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;Swift.String&gt;, Swift.Optional&lt;Swift.String&gt;) -&gt; () in GitAmend.DetailViewController.configureView() -&gt; ()"
-                  moduleName = "GitAmend"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/tim/dev/GitAmend/GitAmend/DetailViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "22"
-                  endingLineNumber = "22"
-                  offsetFromSymbolStart = "163">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

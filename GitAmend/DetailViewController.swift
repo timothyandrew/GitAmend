@@ -56,18 +56,18 @@ class DetailViewController: UIViewController, WKNavigationDelegate {
             self.title = file.prettyFilename(trimPath: false)
             
             let alert = AlertUtil.blockScreen()
-            present(alert, animated: true)
-
-            // TODO: Configurable repo
-            file.fetchContents("timothyandrew/kb") { contents, error in
-                guard let text = contents else {
-                    // use error
-                    return
+            present(alert, animated: true) {
+                // TODO: Configurable repo
+                file.fetchContents("timothyandrew/kb") { contents, error in
+                    guard let text = contents else {
+                        // use error
+                        return
+                    }
+                
+                    self.text = text
+                    self.configureText()
+                    alert.dismiss(animated: true)
                 }
-            
-                self.text = text
-                self.configureText()
-                alert.dismiss(animated: true)
             }
         }
     }
