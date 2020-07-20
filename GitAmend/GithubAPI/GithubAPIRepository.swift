@@ -59,6 +59,11 @@ class GithubAPIRepository: NSObject {
         }
     }
     
+    func createTransientFile(path filePath: String) {
+        let file = GithubAPIFile(path: filePath)
+        tree.insert(file: file)
+    }
+    
     func persistFile(path filePath: String, contents: String, _ completion: @escaping (_ shas: (String, String, String)?) -> Void) {
         print("Creating blob")
         GithubAPI.request("repos/\(self.path)/git/blobs", GithubAPIBlob.self, method: .Post, params: [

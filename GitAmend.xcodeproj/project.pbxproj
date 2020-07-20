@@ -30,6 +30,8 @@
 		221C420124BF6C510020A8D1 /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 221C420024BF6C510020A8D1 /* AuthenticationServices.framework */; };
 		221C420324BF6F200020A8D1 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221C420224BF6F200020A8D1 /* RootViewController.swift */; };
 		221C420624BF74440020A8D1 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 221C420524BF74440020A8D1 /* Alamofire */; };
+		2263609024C5652E00807146 /* DateUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2263608F24C5652E00807146 /* DateUtil.swift */; };
+		2263609224C567B600807146 /* GAPaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2263609124C567B600807146 /* GAPaths.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +59,8 @@
 		221C41F924BF6C400020A8D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		221C420024BF6C510020A8D1 /* AuthenticationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AuthenticationServices.framework; path = System/Library/Frameworks/AuthenticationServices.framework; sourceTree = SDKROOT; };
 		221C420224BF6F200020A8D1 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
+		2263608F24C5652E00807146 /* DateUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtil.swift; sourceTree = "<group>"; };
+		2263609124C567B600807146 /* GAPaths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GAPaths.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				220AE66024C49CC8002E1D5B /* AlertUtil.swift */,
+				2263608F24C5652E00807146 /* DateUtil.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -127,6 +132,7 @@
 		221C41E824BF6C3E0020A8D1 /* GitAmend */ = {
 			isa = PBXGroup;
 			children = (
+				2263608C24C564CD00807146 /* Business Logic */,
 				220AE65F24C49CC0002E1D5B /* Util */,
 				220C2ADF24C0E68D007B22EB /* GithubAPI */,
 				220C2ADB24C0DF32007B22EB /* Config */,
@@ -149,6 +155,14 @@
 				221C420024BF6C510020A8D1 /* AuthenticationServices.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2263608C24C564CD00807146 /* Business Logic */ = {
+			isa = PBXGroup;
+			children = (
+				2263609124C567B600807146 /* GAPaths.swift */,
+			);
+			path = "Business Logic";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -233,6 +247,7 @@
 			files = (
 				220AE66124C49CC8002E1D5B /* AlertUtil.swift in Sources */,
 				221C420324BF6F200020A8D1 /* RootViewController.swift in Sources */,
+				2263609224C567B600807146 /* GAPaths.swift in Sources */,
 				220AE65924C35328002E1D5B /* GithubAPIBlob.swift in Sources */,
 				221C41EA24BF6C3E0020A8D1 /* AppDelegate.swift in Sources */,
 				221C41EC24BF6C3E0020A8D1 /* SceneDelegate.swift in Sources */,
@@ -245,6 +260,7 @@
 				220AE65E24C49064002E1D5B /* GithubAPIRepository.swift in Sources */,
 				220C2AED24C33814007B22EB /* GithubAPIFileContents.swift in Sources */,
 				220C2AE524C21859007B22EB /* GithubAPIFile.swift in Sources */,
+				2263609024C5652E00807146 /* DateUtil.swift in Sources */,
 				220AE65B24C3691F002E1D5B /* GithubAPICommit.swift in Sources */,
 				220C2AEB24C30103007B22EB /* GithubAPITree.swift in Sources */,
 			);

@@ -3,10 +3,22 @@ import UIKit
 class GithubAPIFile: NSObject, Decodable {
     let path: String
     let type: String
-    var sha: String
+    var sha: String?
+    
+    init(path: String) {
+        self.path = path
+        self.type = "blob"
+    }
     
     func prettyFilename() -> String {
-        self.path.split(separator: "/").suffix(3).joined(separator: "/")
+        let filename = self.path.split(separator: "/").suffix(3).joined(separator: "/")
+        
+        if sha == nil {
+            return "[A] \(filename)"
+            
+        } else {
+            return filename
+        }
     }
     
     func fileExt() -> String {
@@ -16,7 +28,12 @@ class GithubAPIFile: NSObject, Decodable {
     }
     
     func fetchContents(_ repo: String, _ completionHandler: @escaping (_ result: String?, _ error: String?) -> Void) {
-        GithubAPI.request("repos/\(repo)/git/blobs/\(self.sha)", GithubAPIFileContents.self) { response in
+        guard let sha = self.sha else {
+            completionHandler("", nil)
+            return
+        }
+        
+        GithubAPI.request("repos/\(repo)/git/blobs/\(sha)", GithubAPIFileContents.self) { response in
             let contents: GithubAPIFileContents? = response.value
             let maybeBase64 = contents?.content
             

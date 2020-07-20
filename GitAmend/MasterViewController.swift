@@ -9,6 +9,7 @@
 import UIKit
 
 class MasterViewController: UITableViewController {
+    
     let refresh = UIRefreshControl()
     var detailViewController: DetailViewController? = nil
     var repo: GithubAPIRepository?
@@ -18,11 +19,11 @@ class MasterViewController: UITableViewController {
         super.viewDidLoad()
         
         self.refreshControl = refresh
-        refresh.addTarget(self, action: #selector(refreshTable), for: .valueChanged)
+        refresh.addTarget(self, action: #selector(refreshTableWithFetch), for: .valueChanged)
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewFile))
         
         refresh.beginRefreshing()
-        refreshTable()
+        refreshTableWithFetch()
         
         if let split = splitViewController {
             let controllers = split.viewControllers
@@ -73,15 +74,29 @@ class MasterViewController: UITableViewController {
     @objc
     func addNewFile(_ sender: UIBarButtonItem) {
         let alert = AlertUtil.sheet(title: "Add a File", actions: [
-            ("Learning Note", { _ in print("Learning") }),
+            ("Learning Note", { _ in self.newLearningNote() }),
             ("Journal Entry", { _ in print("LearningX") })
         ])
         alert.popoverPresentationController?.barButtonItem = sender
         self.present(alert, animated: true)
     }
     
+    func newLearningNote() {
+        let alert = AlertUtil.prompt(title: "New Learning Note", message: "Enter a filename") { filename in
+            self.repo?.createTransientFile(path: GAPaths.learningNote(name: filename))
+            self.refreshTableWithoutFetch()
+        }
+        present(alert, animated: true)
+    }
+    
+    func refreshTableWithoutFetch() {
+        let files = repo?.tree.files()
+        self.objects = files ?? []
+        self.tableView.reloadData()
+    }
+    
     @objc
-    func refreshTable() {
+    func refreshTableWithFetch() {
         print("Attempting to fetch repo")
         GithubAPIRepository.fetch(repo: "timothyandrew/kb") { maybeRepo in
             guard let repo = maybeRepo else {
@@ -92,7 +107,7 @@ class MasterViewController: UITableViewController {
 
             print("Fetched repo: \(repo.path)")
             let files = repo.tree.files()
-            self.objects.append(contentsOf: files)
+            self.objects = files
             self.tableView.reloadData()
             self.repo = repo
             

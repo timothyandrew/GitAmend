@@ -37,4 +37,20 @@ class AlertUtil: NSObject {
         
         return alert
     }
+    
+    static func prompt(title: String, message: String, _ completion: @escaping (String) -> Void) -> UIAlertController {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addTextField { tf in
+            tf.placeholder = "File name (no extension)"
+        }
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+            let text = alert.textFields?.first?.text
+            completion(text ?? "untitled-\(NSDate().timeIntervalSince1970)")
+        })
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        
+        return alert
+    }
 }

@@ -53,6 +53,7 @@ class DetailViewController: UIViewController, UITextViewDelegate {
             
             file.sha = blobSha
             self.navigationItem.rightBarButtonItem = nil
+            
             let alert = AlertUtil.dismiss(title: "Success!", message: "Created commit \(commitSha)")
             self.present(alert, animated: true)
         }
