@@ -35,14 +35,14 @@ class DetailViewController: UIViewController, WKNavigationDelegate {
             self.detailView.addSubview(self.webView!)
 
         case .Editing:
-            let detailFrame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height - 44)
-            let toolbarFrame = CGRect(x: 0, y: frame.maxY - 44, width: frame.width, height: 44)
+            let detailFrame = CGRect(x: frame.minX, y: frame.minY, width: frame.width, height: frame.height - 44)
+            let toolbarFrame = CGRect(x: frame.minX, y: frame.maxY - 44, width: frame.width, height: 44)
             
             let toolbar = UIToolbar(frame: toolbarFrame)
             toolbar.items = [
-                UIBarButtonItem(barButtonSystemItem: .compose, target: nil, action: nil),
                 UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
-                UIBarButtonItem(barButtonSystemItem: .camera, target: nil, action: nil)
+                UIBarButtonItem(title: "Quote", style: .plain, target: self, action: #selector(toggleQuote)),
+                UIBarButtonItem(title: "Bullet", style: .plain, target: self, action: #selector(toggleBullet))
             ]
             self.detailView.addSubview(toolbar)
             
@@ -153,5 +153,15 @@ class DetailViewController: UIViewController, WKNavigationDelegate {
         } else {
             decisionHandler(.allow)
         }
+    }
+    
+    // MARK: - Text Manipulation
+    
+    @objc func toggleQuote() {
+        self.textView?.togglePrefix("> ")
+    }
+    
+    @objc func toggleBullet() {
+        self.textView?.togglePrefix("- ")
     }
 }

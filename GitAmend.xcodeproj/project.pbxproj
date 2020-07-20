@@ -38,6 +38,7 @@
 		2263609C24C5ABC100807146 /* MarkdownUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2263609B24C5ABC000807146 /* MarkdownUtil.swift */; };
 		226360A424C5AD9C00807146 /* GitAmendTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226360A324C5AD9C00807146 /* GitAmendTests.swift */; };
 		226360AC24C5ADB200807146 /* MarkdownUtilTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226360AB24C5ADB200807146 /* MarkdownUtilTests.swift */; };
+		226360B024C5E8AA00807146 /* UITextViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226360AF24C5E8AA00807146 /* UITextViewExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +84,7 @@
 		226360A324C5AD9C00807146 /* GitAmendTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitAmendTests.swift; sourceTree = "<group>"; };
 		226360A524C5AD9C00807146 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		226360AB24C5ADB200807146 /* MarkdownUtilTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownUtilTests.swift; sourceTree = "<group>"; };
+		226360AF24C5E8AA00807146 /* UITextViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextViewExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +169,7 @@
 		221C41E824BF6C3E0020A8D1 /* GitAmend */ = {
 			isa = PBXGroup;
 			children = (
+				226360AE24C5E89C00807146 /* Extensions */,
 				2263608C24C564CD00807146 /* Business Logic */,
 				220AE65F24C49CC0002E1D5B /* Util */,
 				220C2ADF24C0E68D007B22EB /* GithubAPI */,
@@ -208,6 +211,14 @@
 				226360AB24C5ADB200807146 /* MarkdownUtilTests.swift */,
 			);
 			path = GitAmendTests;
+			sourceTree = "<group>";
+		};
+		226360AE24C5E89C00807146 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				226360AF24C5E8AA00807146 /* UITextViewExtensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -338,6 +349,7 @@
 				220C2AE124C0E6A5007B22EB /* GithubAPIAuth.swift in Sources */,
 				220C2AE724C21993007B22EB /* GithubAPI.swift in Sources */,
 				220AE65E24C49064002E1D5B /* GithubAPIRepository.swift in Sources */,
+				226360B024C5E8AA00807146 /* UITextViewExtensions.swift in Sources */,
 				220C2AED24C33814007B22EB /* GithubAPIFileContents.swift in Sources */,
 				220C2AE524C21859007B22EB /* GithubAPIFile.swift in Sources */,
 				2263609024C5652E00807146 /* DateUtil.swift in Sources */,
