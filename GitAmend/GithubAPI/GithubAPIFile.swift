@@ -4,10 +4,12 @@ class GithubAPIFile: NSObject, Decodable {
     let path: String
     let type: String
     var sha: String?
+    let defaultText: String?
     
-    init(path: String) {
+    init(path: String, defaultText: String? = nil) {
         self.path = path
         self.type = "blob"
+        self.defaultText = defaultText
     }
     
     func shouldTrim(_ s: [Substring]) -> Bool {
@@ -49,7 +51,8 @@ class GithubAPIFile: NSObject, Decodable {
     
     func fetchContents(_ repo: String, _ completionHandler: @escaping (_ result: String?, _ error: String?) -> Void) {
         guard let sha = self.sha else {
-            completionHandler("---\ntitle: \"\"\n\n* *\n\n", nil)
+            let defaultText = self.defaultText ?? "---\ntitle: \"\"\n\n* *\n\n"
+            completionHandler(defaultText, nil)
             return
         }
         

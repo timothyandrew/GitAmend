@@ -59,8 +59,16 @@ class GithubAPIRepository: NSObject {
         }
     }
     
-    func createTransientFile(path filePath: String) {
-        let file = GithubAPIFile(path: filePath)
+    func createTransientFile(path filePath: String, fromMdLink mdLink: String? = nil) {
+        var file: GithubAPIFile
+        
+        if let mdLink = mdLink,
+           let (title, url) = MarkdownUtil.parse(mdUrl: mdLink) {
+            file = GithubAPIFile(path: filePath, defaultText: "---\ntitle: \"\(title)\"\n---\n\n*\(url)*\n\n")
+        } else {
+            file = GithubAPIFile(path: filePath)
+        }
+
         tree.insert(file: file)
     }
     

@@ -66,7 +66,7 @@ class MasterViewController: UITableViewController, UISearchResultsUpdating {
                 controller.maybeRepo = repo
                 
                 if !file.isPersisted() {
-                    controller.state = .Editing                    
+                    controller.state = .Editing
                 }
                 
                 controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
@@ -107,7 +107,8 @@ class MasterViewController: UITableViewController, UISearchResultsUpdating {
     
     func newLearningNote() {
         let alert = AlertUtil.prompt(title: "New Learning Note", message: "Enter a filename") { filename in
-            self.repo?.createTransientFile(path: GAPaths.learningNote(name: filename))
+            let clipboard = UIPasteboard.general.string
+            self.repo?.createTransientFile(path: GAPaths.learningNote(name: filename), fromMdLink: clipboard)
             self.refreshTableWithoutFetch()
             self.tableView.selectRow(at: IndexPath(arrayLiteral: 0, 0), animated: true, scrollPosition: .top)
             self.performSegue(withIdentifier: "showDetail", sender: self.tableView)
