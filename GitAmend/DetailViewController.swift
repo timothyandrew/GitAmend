@@ -35,11 +35,22 @@ class DetailViewController: UIViewController, WKNavigationDelegate {
             self.detailView.addSubview(self.webView!)
 
         case .Editing:
+            let detailFrame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height - 44)
+            let toolbarFrame = CGRect(x: 0, y: frame.maxY - 44, width: frame.width, height: 44)
+            
+            let toolbar = UIToolbar(frame: toolbarFrame)
+            toolbar.items = [
+                UIBarButtonItem(barButtonSystemItem: .compose, target: nil, action: nil),
+                UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+                UIBarButtonItem(barButtonSystemItem: .camera, target: nil, action: nil)
+            ]
+            self.detailView.addSubview(toolbar)
+            
             self.navigationItem.rightBarButtonItems = [
                 UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.stopEditing)),
                 UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(self.commitChanges))
             ]
-            self.textView = UITextView(frame: frame)
+            self.textView = UITextView(frame: detailFrame)
             self.textView!.isEditable = true
             self.textView!.isSelectable = true
             
