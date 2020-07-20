@@ -22,6 +22,7 @@ class RootViewController: UISplitViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.preferredDisplayMode = .oneBesideSecondary
     }
     
     override func viewDidAppear(_ animated: Bool) {

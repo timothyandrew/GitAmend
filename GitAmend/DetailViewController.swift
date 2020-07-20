@@ -16,12 +16,11 @@ class DetailViewController: UIViewController, UITextViewDelegate {
         case Editing
     }
     
-    @IBOutlet weak var detailView: UIView!
+    @IBOutlet var detailView: UIView!
     var textView: UITextView?
     var webView: WKWebView?
     var state = State.Viewing
     var text: String?
-    var alert: UIAlertController?
     
     func configureView() {
         switch state {
@@ -52,6 +51,9 @@ class DetailViewController: UIViewController, UITextViewDelegate {
         
         if let file = maybeFile {
             self.title = file.prettyFilename()
+            
+            let alert = AlertUtil.blockScreen()
+            present(alert, animated: true)
 
             // TODO: Configurable repo
             file.fetchContents("timothyandrew/kb") { contents, error in
@@ -62,10 +64,8 @@ class DetailViewController: UIViewController, UITextViewDelegate {
             
                 self.text = text
                 self.configureText()
-                self.alert?.dismiss(animated: true)
+                alert.dismiss(animated: true)
             }
-        } else {
-            self.alert?.dismiss(animated: true)
         }
     }
     
@@ -123,10 +123,6 @@ class DetailViewController: UIViewController, UITextViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.alert = AlertUtil.blockScreen()
-        present(self.alert!, animated: true)
-        
         configureView()
     }
 
